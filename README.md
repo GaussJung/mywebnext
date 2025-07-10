@@ -1,4 +1,4 @@
-## mywebnext v1.2
+## MyWebNext v1.22
 - This project with Next.JS is set up to use the built source as a static web.
 - Library versions used: Node 22.13.1, Next.js 15.3.5- Environment files: .env.production, .env.development, .env.local
 - The environment file must contain the following: 
@@ -8,7 +8,6 @@ NEXT_PUBLIC_BACKEND_URL=https://backend.example.com
 
 ## Remarks 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 
 ## Getting Started
 First, run the development server:
@@ -27,8 +26,7 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-
-## Notices for static web 
+## Notices for setting Static Web 
 - "next.config.ts" should be renamed to "next.config.js".
 ```bash
 # next.config.js for static web --> important block is [output: 'export']  
@@ -42,8 +40,7 @@ module.exports = nextConfig;
 ```
 - CORS needs to be set up in the backend.
 
-
-## Running build source  
+## Running Build Source  
 ```bash
 # Install local web server : [serve] 
 npm install -g serve
@@ -53,11 +50,11 @@ npm run dev
 npm run build 
 (After build, 'out' directory will be created )
 # Run build source 
-npx server out   : (for port 3000)
-npx server out  -l 80  :  (for port 80)
+npx server out  (for port 3000)
+npx server out  -l 80  (for port 80)
 # Check function using web brower 
-http://localhost:3000 (Default port 3000)
-http://localhost:80 or http://localhost (Custom port 80) 
+http://localhost:3000 (default port 3000)
+http://localhost:80 or http://localhost (custom port 80) 
 
 ```
 
