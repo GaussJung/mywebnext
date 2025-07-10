@@ -1,4 +1,4 @@
-## MyWebNext v1.22
+## MyWebNext v1.24
 - This project with Next.JS is set up to use the built source as a static web.
 - Library versions used: Node 22.13.1, Next.js 15.3.5- Environment files: .env.production, .env.development, .env.local
 - The environment file must contain the following: 
@@ -27,6 +27,17 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Notices for setting Static Web 
+- This Project created with below options.
+```bash
+npx create-next-app@lates 
+Input project name 
+# ESLint --> Yes 
+# Tailwind CSS--> Yes 
+# App Router --> Yes
+# Code inside 'src/' directory --> Yes 
+# Turbopack --> No 
+# import alias --> No
+```
 - "next.config.ts" should be renamed to "next.config.js".
 ```bash
 # next.config.js for static web --> important block is [output: 'export']  
