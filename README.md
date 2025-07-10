@@ -1,4 +1,4 @@
-## MyWebNext v1.27
+## MyWebNext v1.28
 - This project with Next.JS is set up to use the built source as a static web.
 - Library versions used: Node 22.13.1, Next.js 15.3.5- Environment files: .env.production, .env.development, .env.local
 - The environment file must contain the following: 
