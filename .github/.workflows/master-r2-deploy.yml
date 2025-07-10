@@ -1,0 +1,53 @@
+name: Build & Deploy Next.js to R2
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      NODE_ENV: production
+
+    steps:
+      # ✅ Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ✅ Setup Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # ✅ Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # ✅ Create .env.production from secret
+      - name: Create .env.production
+        run: |
+          echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}" > .env.production
+
+      # ✅ Build Next.js
+      - name: Build Next.js
+        run: npm run build
+
+      # ✅ Configure AWS credentials file for R2
+      - name: Configure AWS credentials for R2
+        run: |
+          mkdir -p ~/.aws
+          cat <<EOT > ~/.aws/credentials
+          [default]
+          aws_access_key_id=${{ secrets.R2_ACCESS_KEY }}
+          aws_secret_access_key=${{ secrets.R2_SECRET_KEY }}
+          EOT
+
+      # ✅ Upload `out/` to R2
+      - name: Upload build output to R2
+        run: |
+          aws --endpoint-url=https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+            s3 sync out/ s3://${{ secrets.R2_BUCKET }}/ --delete
