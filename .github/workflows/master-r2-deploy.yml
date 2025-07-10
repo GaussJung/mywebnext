@@ -9,9 +9,6 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
-    env:
-      NODE_ENV: production
-
     steps:
       # ✅ Checkout code
       - name: Checkout repository
@@ -26,8 +23,10 @@ jobs:
       # ✅ Install dependencies
       - name: Install dependencies
         run: npm ci
+        env:
+          NODE_ENV: ''  # devDependencies까지 설치
 
-      # ✅ Create .env.production from secret
+      # ✅ Create .env.production
       - name: Create .env.production
         run: |
           echo "NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}" > .env.production
@@ -35,8 +34,10 @@ jobs:
       # ✅ Build Next.js
       - name: Build Next.js
         run: npm run build
+        env:
+          NODE_ENV: production
 
-      # ✅ Configure AWS credentials file for R2
+      # ✅ Configure AWS credentials for R2
       - name: Configure AWS credentials for R2
         run: |
           mkdir -p ~/.aws
@@ -46,7 +47,7 @@ jobs:
           aws_secret_access_key=${{ secrets.R2_SECRET_KEY }}
           EOT
 
-      # ✅ Upload `out/` to R2
+      # ✅ Upload build output to R2
       - name: Upload build output to R2
         run: |
           aws --endpoint-url=https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
