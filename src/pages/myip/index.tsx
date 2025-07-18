@@ -1,6 +1,6 @@
 // src/app/myip/page.tsx
 
-"use client"; // Marks this as a Client Component in Next.js
+ // Marks this as a Client Component in Next.js
 
 import { useEffect, useState } from 'react';
 

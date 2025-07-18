@@ -1,0 +1,129 @@
+.wrapper {
+  background: #f0f0f0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.box {
+  width: 1200px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #222;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.controls {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  flex: 1;
+  color: #222;
+  font-size: 15px;
+}
+
+.buttonBlue {
+  padding: 8px 12px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.buttonGreen {
+  padding: 8px 12px;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.hr {
+  margin: 20px 0;
+  border-top: 1px solid #ddd;
+}
+
+.companyItem {
+  font-size: 18px;
+  margin: 5px 0;
+  color: #333;
+}
+
+.companyLink {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.formLabel {
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.formInput {
+  font-weight: 500;
+  color: #333;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th {
+  text-align: left;
+  background-color: #f5f5f5;
+  color: #222; /* 제목: 진한 색 */
+  padding: 8px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.table td {
+  padding: 8px;
+  border-top: 1px solid #ddd;
+  color: #333; /* 내용: 진한 색 */
+  font-size: 15px;
+}
+
+/* 상세 화면 개선 */
+.label {
+  font-weight: 600;
+  color: #000; /* 검정 */
+  margin-right: 5px;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.value {
+  font-weight: 500;
+  color: #007bff; /* 진한 파랑 */
+}
