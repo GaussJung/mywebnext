@@ -7,6 +7,28 @@
   padding-top: 20px;
 }
 
+.content {
+  width: 1200px;
+}
+
+.header {
+  width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px 10px 20px;
+}
+
+.headerLink {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.headerLink:hover {
+  text-decoration: underline;
+}
+
 .imageContainer {
   display: flex;
   justify-content: center;

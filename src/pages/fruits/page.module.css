@@ -1,0 +1,75 @@
+.wrapper {
+  background: #f3e8ff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.box {
+  width: 1200px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.link {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: blue;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.companyLink {
+  color: darkblue;
+  text-decoration: underline;
+}
+
+.buttonBlue {
+  background-color: #007bff;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.buttonBlue:hover {
+  background-color: #0056b3;
+}
+
+.hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
