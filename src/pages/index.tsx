@@ -18,7 +18,7 @@ export default function Home() {
             alt="Wikiki"
             width={1200}
             height={0}
-            style={{ height: 'auto' }}
+            style={{ height: 'auto', width: '100%' }}
           />
         </div>
       </div>
