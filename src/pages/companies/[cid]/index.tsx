@@ -31,6 +31,8 @@ export default function CompanyInformationPage() {
       return;
     }
 
+    console.log('[useEffect-1] window.location.pathname:', window.location.pathname);
+
     if (typeof cid === 'string') {
       console.log('[useEffect-1] found cid in router.query:', cid);
       localStorage.setItem('cid-param', cid);
