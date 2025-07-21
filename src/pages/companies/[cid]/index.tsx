@@ -1,4 +1,6 @@
-import styles from '../page.module.css';
+// ./src/pages/companies/[cid]/index.tsx
+
+import styles from '@/src/pages/page.module.css';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -13,119 +15,106 @@ type Company = {
 
 export default function CompanyInformationPage() {
   const router = useRouter();
-  const { cid } = router.query;
 
   const [companyData, setCompanyData] = useState<Company | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
-  const [cidParam, setCidParam] = useState<string | null>(null);
+  const [cid, setCid] = useState<string | null>(null);
 
   /**
-   * Save cid to localStorage or retrieve from localStorage
+   * 📌 CID 추출
+   * - URL pathname에서 추출
+   * - 없으면 localStorage fallback
    */
   useEffect(() => {
-    console.log('[useEffect-1] router.isReady:', router.isReady, 'cid:', cid);
+    const log = '[useEffect-C1]';
+    console.log(`${log} router.isReady:`, router.isReady);
 
-    if (!router.isReady) {
-      console.log('[useEffect-1] router is not ready yet.');
-      return;
-    }
+    if (!router.isReady) return;
 
-    console.log('[useEffect-1] window.location.pathname:', window.location.pathname);
+    const path = window.location.pathname;
+    console.log(`${log} pathname:`, path);
 
-    if (typeof cid === 'string') {
-      console.log('[useEffect-1] found cid in router.query:', cid);
-      localStorage.setItem('cid-param', cid);
-      setCidParam(cid);
+    const match = path.match(/^\/companies\/(\d+)/);
+    const foundCid = match?.[1] || localStorage.getItem('cid-param');
+
+    if (foundCid) {
+      console.log(`${log} resolved cid:`, foundCid);
+      localStorage.setItem('cid-param', foundCid);
+      setCid(foundCid);
     } else {
-      const storedCid = localStorage.getItem('cid-param');
-      if (storedCid) {
-        console.log('[useEffect-1] retrieved cid from localStorage:', storedCid);
-        setCidParam(storedCid);
-      } else {
-        console.log('[useEffect-1] no cid in router.query and no cid in localStorage.');
-        setError('Invalid company ID');
-        setLoading(false);
-      }
+      console.error(`${log} no cid found`);
+      setError('Invalid company ID');
+      setLoading(false);
     }
-  }, [router.isReady, cid]);
+  }, [router.isReady]);
 
   /**
-   * Fetch company details by cidParam
+   * 📌 회사 데이터 로드
    */
   useEffect(() => {
-    console.log('[useEffect-2] cidParam:', cidParam);
-
-    if (!cidParam) {
-      console.log('[useEffect-2] cidParam is null, skipping fetch.');
+    const log = '[useEffect-C2]';
+    if (!cid) {
+      console.warn(`${log} cid is null, skipping fetch.`);
       return;
     }
 
-    const fetchCompany = async () => {
-      console.log('[fetchCompany] fetching company with cidParam:', cidParam);
+    console.log(`${log} fetching for cid:`, cid);
 
+    const fetchData = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/companies/${cidParam}`);
-        console.log('[fetchCompany] response status:', res.status);
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/companies/${cid}`);
+        console.log(`${log} response status:`, res.status);
 
         if (!res.ok) {
-          throw new Error(`Failed to fetch company ID ${cidParam}`);
+          throw new Error(`Failed to fetch company ID ${cid}`);
         }
 
-        const data = await res.json();
-        console.log('[fetchCompany] fetched data:', data);
+        const data: Company = await res.json();
+        console.log(`${log} fetched data:`, data);
 
         setCompanyData(data);
         setError('');
       } catch (err) {
-        if (err instanceof Error) {
-          console.error('[fetchCompany] error:', err.message);
-          setError(err.message);
-        } else {
-          console.error('[fetchCompany] unknown error');
-          setError('Unknown error occurred');
-        }
+        console.error(`${log} error:`, err);
+        setError(err instanceof Error ? err.message : 'Unknown error');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCompany();
-  }, [cidParam]);
+    fetchData();
+  }, [cid]);
 
   const handleUpdate = () => {
-    if (cidParam) {
-      router.push(`/companies/${cidParam}/update`);
+    if (cid) {
+      router.push(`/companies/${cid}/update`);
     }
   };
 
   const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this company?')) return;
+    if (!confirm('Are you sure you want to delete this company?`')) return;
 
-    if (!cidParam) {
+    if (!cid) {
       alert('Invalid company ID');
       return;
     }
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/companies/${cidParam}`, {
-        method: 'DELETE',
-      });
-      if (!res.ok) {
-        throw new Error('Failed to delete company');
-      }
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/companies/${cid}`,
+        { method: 'DELETE' }
+      );
+      if (!res.ok) throw new Error('Failed to delete company');
+
       alert('Company deleted successfully');
       router.push('/companies');
     } catch (err) {
-      if (err instanceof Error) {
-        alert(err.message);
-      } else {
-        alert('Unknown error occurred');
-      }
+      alert(err instanceof Error ? err.message : 'Unknown error occurred');
     }
   };
 
-  if (!router.isReady && !cidParam) {
+  if (!router.isReady && !cid) {
     return <div>Loading route information…</div>;
   }
 
@@ -136,24 +125,29 @@ export default function CompanyInformationPage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.box}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className={styles.header}>
           <h1 className={styles.title}>Company Information</h1>
-          <Link href="/companies" className={styles.link}>Go to list</Link>
+          <Link href="/companies" className={styles.link}>
+            Go to list
+          </Link>
         </div>
 
         {error && <p style={{ color: 'red' }}>{error}</p>}
 
         {companyData && (
-          <div>
+          <>
             <p><span className={styles.label}>Name:</span> <span className={styles.value}>{companyData.cname}</span></p>
             <p><span className={styles.label}>Phone:</span> <span className={styles.value}>{companyData.cphone || '-'}</span></p>
             <p><span className={styles.label}>Industry:</span> <span className={styles.value}>{companyData.industry || '-'}</span></p>
             <p><span className={styles.label}>Remarks:</span> <span className={styles.value}>{companyData.remarks || '-'}</span></p>
-          </div>
+          </>
         )}
 
         {companyData && (
-          <div className={styles.controls} style={{ justifyContent: 'space-between', marginTop: '20px' }}>
+          <div
+            className={styles.controls}
+            style={{ justifyContent: 'space-between', marginTop: '20px' }}
+          >
             <button className={styles.buttonBlue} onClick={handleUpdate}>Update</button>
             <button className={styles.buttonGreen} onClick={handleDelete}>Delete</button>
           </div>
