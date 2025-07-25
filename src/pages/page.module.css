@@ -34,7 +34,11 @@
 .imageContainer {
   display: flex;
   justify-content: center;
-  width: 100%;
+}
+
+.vertical {
+  flex-direction: column;
+  gap: 20px;
 }
 
 .imageContainer img {
@@ -42,3 +46,4 @@
   height: auto;
   display: block;
 }
+

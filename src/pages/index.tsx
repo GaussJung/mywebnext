@@ -12,7 +12,7 @@ export default function Home() {
           <Link href="/fruits" className={styles.headerLink}>Fruit</Link>
           <Link href="/companies" className={styles.headerLink}>Company</Link>
         </div>
-        <div className={styles.imageContainer}>
+        <div className={`${styles.imageContainer} ${styles.vertical}`}>
           <Image
             src="/images/wikiki.jpg"
             alt="Wikiki"
@@ -20,7 +20,7 @@ export default function Home() {
             height={0}
             style={{ height: 'auto', width: '100%' }}
           />
-          <hr></hr>
+          <hr style={{ width: '100%' }} />
           <Image
             src="https://data.fandom.live/test/roma.jpg"
             alt="Rome"
