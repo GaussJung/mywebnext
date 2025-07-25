@@ -20,6 +20,13 @@ export default function Home() {
             height={0}
             style={{ height: 'auto', width: '100%' }}
           />
+          <Image
+            src="https://data.fandom.live/test/roma.jpg"
+            alt="Rome"
+            width={1200}
+            height={0}
+            style={{ height: 'auto', width: '100%' }}
+          />
         </div>
       </div>
     </div>
