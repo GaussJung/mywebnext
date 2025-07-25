@@ -13,17 +13,10 @@ export default function Home() {
           <Link href="/companies" className={styles.headerLink}>Company</Link>
         </div>
         <div className={`${styles.imageContainer} ${styles.vertical}`}>
+          <hr style={{ width: '100%' }} />
           <Image
             src="/images/wikiki.jpg"
             alt="Wikiki"
-            width={1200}
-            height={0}
-            style={{ height: 'auto', width: '100%' }}
-          />
-          <hr style={{ width: '100%' }} />
-          <Image
-            src="https://data.fandom.live/test/roma.jpg"
-            alt="Rome"
             width={1200}
             height={0}
             style={{ height: 'auto', width: '100%' }}
