@@ -20,6 +20,7 @@ export default function Home() {
             height={0}
             style={{ height: 'auto', width: '100%' }}
           />
+          <hr></hr>
           <Image
             src="https://data.fandom.live/test/roma.jpg"
             alt="Rome"
